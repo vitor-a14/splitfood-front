@@ -22,7 +22,6 @@ export default function Login() {
                 <Text style={styles.buttonText}>Entrar</Text>
             </Pressable>
             </View>
-
         </View>
 
         <Text style={styles.footerText}>
@@ -37,61 +36,62 @@ export default function Login() {
 }
 
 const styles = StyleSheet.create({
-    container : {
+  container: {
       display: 'flex',
       flexDirection: 'column',
       flex: 1,
       paddingTop: 70,
       alignItems: "center",
-      justifyContent : "top",
-    },
-    title : {
-      fontSize : 30,
-      fontWeight : "bold",
+      justifyContent: "top",
+  },
+  title: {
+      fontSize: 30,
+      fontWeight: "bold",
       textAlign: "center",
-      paddingVertical : 40,
-      color : "red"
-    },
-    inputView : {
-      gap : 15,
-      width : "100%",
-      paddingHorizontal : 40,
-      marginBottom : 5,
+      paddingVertical: 40,
+      color: "red"
+  },
+  inputView: {
+      gap: 15,
+      width: "100%",
+      paddingHorizontal: 40,
+      marginBottom: 5,
       flex: 1
-    },
-    input : {
-      height : 50,
-      paddingHorizontal : 20,
-      borderColor : "red",
-      borderWidth : 1,
-      borderRadius: 7
-    },
-    button : {
-      backgroundColor : "red",
-      height : 45,
-      borderColor : "gray",
-      borderWidth  : 1,
-      borderRadius : 5,
-      alignItems : "center",
-      justifyContent : "center"
-    },
-    buttonText : {
-      color : "white"  ,
+  },
+  input: {
+      height: 50,
+      paddingHorizontal: 20,
+      borderColor: "#D3D3D3", // Slightly grey border color
+      borderWidth: 1,
+      borderRadius: 10, // Rounded corners
+      marginBottom: 20, // Increase space between inputs
+  },
+  button: {
+      backgroundColor: "red",
+      height: 45,
+      borderColor: "gray",
+      borderWidth: 1,
+      borderRadius: 5,
+      alignItems: "center",
+      justifyContent: "center"
+  },
+  buttonText: {
+      color: "white",
       fontSize: 18,
-      fontWeight : "bold"
-    }, 
-    buttonView :{
-      width :"100%",
-      paddingHorizontal : 50
-    },
-    footerText : {
+      fontWeight: "bold"
+  },
+  buttonView: {
+      width: "100%",
+      paddingHorizontal: 50
+  },
+  footerText: {
       height: 100,
-      justifyContent : "top",
+      justifyContent: "top",
       textAlign: "center",
-      color : "gray",
-    },
-    signup : {
-      color : "red",
-      fontSize : 13
-    }
-  });
+      color: "gray",
+  },
+  signup: {
+      color: "red",
+      fontSize: 13
+  }
+});
