@@ -1,4 +1,5 @@
 ### SplitFood - FrontEnd
+Projeto para matéria de Engenharia de Software - Facens.
 
 Esse projeto utiliza Node.JS, React Native e Expo, você pode usar a documentação para se guiar na instalação deles:
 - https://nodejs.org/en/download
