@@ -3,6 +3,7 @@ import { Text, TextInput, Pressable, SafeAreaView, StyleSheet, View } from 'reac
 import Popup from "../components/PopUp";
 
 export default function SignUp() {
+  //state das informações do forms
   const [state, setState] = useState({
     cpf: "",
     username: "",
@@ -10,8 +11,12 @@ export default function SignUp() {
     role: ""
   });
 
-  const [popupVisible, setPopupVisible] = useState(false);
+  //state do pop up que irá informar o usuário se houve sucesso ou erro no cadastro
+  const [popupVisible, setPopupVisible] = useState(false); 
+  const [popupTitle, setPopupTitle] = useState(""); 
+  const [popupMessage, setPopupMessage] = useState("");
 
+  //função chamado para atualizar o forms
   const handleInputChange = (name, value) => {
     setState((prevState) => ({
       ...prevState,
@@ -19,14 +24,44 @@ export default function SignUp() {
     }));
   };
 
+  //função chamada ao finalizar o forms de cadastro
   const handleSubmit = (event) => {
     event.preventDefault();
-    setPopupVisible(true);
-    console.log(state);
+
+    console.log(JSON.stringify(state))
+
+    //comunicação com o backend
+    fetch('http://localhost:8080/users', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(state)
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Erro na respsota do servidor!');
+      }
+      return response.json();
+    })
+    .then(data => {
+      //Sucesso
+      console.log("Sucesso no cadastro!");
+      setPopupTitle("Sucesso ao Cadastrar");
+      setPopupMessage("Você será redirecionado para a tela de login");
+      setPopupVisible(true); 
+    })
+    .catch(error => {
+      //Erro
+      //console.log("Erro no cadastro: ", error);
+      setPopupTitle("Erro ao Cadastrar");
+      setPopupMessage("Parece que os servidores estão fora do ar, tente novamente mais tarde.");
+      setPopupVisible(true);
+    });
   };
 
   const closePopup = () => {
-    setPopupVisible(false); // Close the popup
+    setPopupVisible(false); 
   };
 
   return (
@@ -56,7 +91,7 @@ export default function SignUp() {
           <Text style={styles.buttonText}>Cadastrar</Text>
         </Pressable>
       </View>
-      <Popup visible={popupVisible} onClose={closePopup} />
+      <Popup visible={popupVisible} onClose={closePopup} title={popupTitle} message={popupMessage} />
     </SafeAreaView>
   );
 }
@@ -84,10 +119,10 @@ const styles = StyleSheet.create({
   input: {
     height: 50,
     paddingHorizontal: 20,
-    borderColor: "#D3D3D3", // Slightly grey border color
+    borderColor: "#D3D3D3", 
     borderWidth: 1,
-    borderRadius: 10, // Rounded corners
-    marginBottom: 20, // Increase space between inputs
+    borderRadius: 10,
+    marginBottom: 20, 
   },
   button: {
     backgroundColor: "red",
