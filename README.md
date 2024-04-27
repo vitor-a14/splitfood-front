@@ -10,6 +10,7 @@ As seguintes bibliotecas são necessárias para a navegação entre telas, insta
 ```
 npm install @react-navigation/native
 npm install @react-navigation/stack
+npm install react-native-animatable
 ```
 
 Por fim, para rodar o código, abra um terminal na pasta do projeto e utilize o comando:
