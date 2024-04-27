@@ -7,6 +7,7 @@ import React from 'react';
 //Telas
 import Login from './src/auth/Login';
 import SignUp from './src/auth/SignUp';
+import Opening from './src/screens/Opening';
 
 //Gerencia a navegação
 const Stack = createStackNavigator();
@@ -14,9 +15,10 @@ const Stack = createStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="SignUp" component={SignUp} />
+      <Stack.Navigator initialRouteName='Opening'>
+        <Stack.Screen name="Opening" component={Opening} options={{headerShown: false}}/>
+        <Stack.Screen name="Login" component={Login} options={{headerShown: false}} />
+        <Stack.Screen name="SignUp" component={SignUp} options={{headerShown: false}} />
       </Stack.Navigator>
     </NavigationContainer>
   );
