@@ -1,8 +1,14 @@
 import React, { useState } from "react";
-import { Text, TextInput, Pressable, SafeAreaView, StyleSheet, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { Text, TextInput, Pressable, SafeAreaView, StyleSheet, View, Image } from 'react-native';
 import Popup from "../components/PopUp";
+import LoadingOverlay from '../components/LoadingOverlay';
+
+import backIcon from '../../assets/gobackIcon.png';
 
 export default function SignUp() {
+  const navigation = useNavigation();
+
   //state das informações do forms
   const [state, setState] = useState({
     cpf: "",
@@ -11,10 +17,17 @@ export default function SignUp() {
     role: ""
   });
 
+  //componente que mostra uma animação de carregamento para aguardar os requests HTTP
+  const [loading, setLoading] = useState(false);
+
   //state do pop up que irá informar o usuário se houve sucesso ou erro no cadastro
   const [popupVisible, setPopupVisible] = useState(false); 
   const [popupTitle, setPopupTitle] = useState(""); 
   const [popupMessage, setPopupMessage] = useState("");
+
+  const closePopup = () => {
+    setPopupVisible(false); 
+  };
 
   //função chamado para atualizar o forms
   const handleInputChange = (name, value) => {
@@ -27,8 +40,7 @@ export default function SignUp() {
   //função chamada ao finalizar o forms de cadastro
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    console.log(JSON.stringify(state))
+    setLoading(true);
 
     //comunicação com o backend
     fetch('http://localhost:8080/users', {
@@ -54,19 +66,23 @@ export default function SignUp() {
     .catch(error => {
       //Erro
       //console.log("Erro no cadastro: ", error);
-      setPopupTitle("Erro ao Cadastrar");
+      setPopupTitle("Erro ao fazer o cadastro");
       setPopupMessage("Parece que os servidores estão fora do ar, tente novamente mais tarde.");
       setPopupVisible(true);
+    })
+    .finally(() => {
+      setLoading(false); 
     });
-  };
-
-  const closePopup = () => {
-    setPopupVisible(false); 
   };
 
   return (
     <SafeAreaView style={styles.container}>
+      <Pressable onPress={() => navigation.goBack()} style={styles.backButton}>
+        <Image source={backIcon} style={styles.backButtonImage} />
+      </Pressable>
+
       <Text style={styles.title}>Crie uma nova conta</Text>
+
       <View style={styles.inputView}>
         <TextInput
           style={styles.input}
@@ -91,7 +107,10 @@ export default function SignUp() {
           <Text style={styles.buttonText}>Cadastrar</Text>
         </Pressable>
       </View>
+
       <Popup visible={popupVisible} onClose={closePopup} title={popupTitle} message={popupMessage} />
+
+      <LoadingOverlay loading={loading} />
     </SafeAreaView>
   );
 }
@@ -138,4 +157,17 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold"
   },
+  backButton: {
+    position: 'absolute',
+    top: 25,
+    left: 25,
+    padding: 10,
+    zIndex: 1,
+  },
+  backButtonImage: {
+    ima: "red",
+    resizeMode: "contain",
+    width: 25,
+    height: 25,
+  }
 });
