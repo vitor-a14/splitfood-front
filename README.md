@@ -1,4 +1,8 @@
-### SplitFood - FrontEnd
+<p align="center">
+  <img width="128" height="128" src="https://github.com/vitor-a14/splitfood-frontend/blob/main/assets/splitfood_logo.png"/> <br>
+</p>
+<h1 align="center">SplitFood</h1>
+
 Projeto para matéria de Engenharia de Software - Facens.
 
 Esse projeto utiliza Node.JS, React Native e Expo, você pode usar a documentação para se guiar na instalação deles:
