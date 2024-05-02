@@ -8,6 +8,8 @@ import React from 'react';
 import Login from './src/auth/Login';
 import SignUp from './src/auth/SignUp';
 import Opening from './src/screens/Opening';
+import CreateGroup from './src/screens/CreateGroup';
+import Home from './src/screens/Home';
 
 //Gerencia a navegação
 const Stack = createStackNavigator();
@@ -19,6 +21,8 @@ export default function App() {
         <Stack.Screen name="Opening" component={Opening} options={{headerShown: false}}/>
         <Stack.Screen name="Login" component={Login} options={{headerShown: false}} />
         <Stack.Screen name="SignUp" component={SignUp} options={{headerShown: false}} />
+        <Stack.Screen name="Home" component={Home} options={{headerShown: false}} /> 
+        <Stack.Screen name="CreateGroup" component={CreateGroup} options={{headerShown: false}} />
       </Stack.Navigator>
     </NavigationContainer>
   );
