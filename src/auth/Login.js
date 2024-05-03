@@ -46,7 +46,7 @@ export default function Login() {
             // verifica se a senha é a mesma da digitada no forms de login
             if (userData.password === state.password) {
                 // dados confirmados com sucesso, redireciona o usuário
-                navigation.navigate('Register');
+                navigation.navigate('Home', { userData: userData });
             } else {
                 // senha incorreta
                 setPopupTitle("Erro ao fazer login");
