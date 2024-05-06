@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useNavigation, useRoute  } from '@react-navigation/native';
+import Popup from "../components/NewItemPopUp";
 import {
   View,
   Text,
   StyleSheet,
   Pressable,
-  Image
+  Image,
+  TouchableOpacity
 } from "react-native";
 
 import backIcon from '../../assets/gobackIcon.png';
@@ -17,11 +19,21 @@ export default function GroupView() {
     //dados do grupo que vieram da tela principal
     const navigation = useNavigation();
     const route = useRoute();
-    const [group, setGroup] = useState(route.params.groupData);
+    //const [group, setGroup] = useState(route.params.groupData);
+
+    //const isManager = group.creator_id == window.userData.cpf;
+    //console.log(isManager);
 
     //mock
     const { groupsMock, findUserByCPF } = useMockData();
-    //const [group, setGroup] = useState(groupsMock[1]);
+    const [group, setGroup] = useState(groupsMock[1]);
+    const isManager = true;
+
+    const [popupVisible, setPopupVisible] = useState(false); 
+
+    const closePopup = () => {
+        setPopupVisible(false); 
+    };
 
     const getConsumedItemData = (itemId) => {
         const consumedItem = group.items.find(item => item.id === itemId);
@@ -59,6 +71,12 @@ export default function GroupView() {
                             </View>
                         ))}
                         <Text style={styles.totalItems}>Total: R$ {getTotalConsumed(user.cpf)}</Text>
+
+                        { isManager && (
+                            <TouchableOpacity style={styles.addButton} onPress={() => {console.log("adicionar mais um item"); setPopupVisible(true);}}>
+                                <Text style={styles.addButtonText}>+</Text>
+                            </TouchableOpacity>
+                        )}
                     </View>
                 ))}
             </View>
@@ -73,7 +91,15 @@ export default function GroupView() {
                         <Text>R$ {product.price.toFixed(2)}</Text>
                     </View>
                 ))}
+
+                { isManager && (
+                    <TouchableOpacity style={styles.addButton} onPress={() => {console.log("adicionar mais um item"); setPopupVisible(true);}}>
+                        <Text style={styles.addButtonText}>+</Text>
+                    </TouchableOpacity>
+                )}
             </View>
+
+            <Popup visible={popupVisible} onClose={closePopup} />
         </View>
     );
 }
@@ -161,5 +187,24 @@ const styles = StyleSheet.create({
         resizeMode: "contain",
         width: 25,
         height: 25,
-    }
+    },
+    addButton: {
+        position: "absolute", 
+        bottom: "5%",
+        right: "-10%", 
+        backgroundColor: "#e85a5a",
+        width: 25,
+        height: 25,
+        borderRadius: 25,
+        justifyContent: "center",
+        alignItems: "center",
+      },
+      addButtonText: {
+        textAlign: "center",
+        textAlignVertical: "center",
+        color: "white",
+        fontSize: "bold",
+        fontSize: 25,
+        paddingBottom: 8,
+      },
 });
