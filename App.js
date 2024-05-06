@@ -23,7 +23,6 @@ export default function App() {
         <Stack.Screen name="Opening" component={Opening} options={{headerShown: false}}/>
         <Stack.Screen name="Login" component={Login} options={{headerShown: false}} />
         <Stack.Screen name="SignUp" component={SignUp} options={{headerShown: false}} />
-        <Stack.Screen name="Home" component={Home} options={{headerShown: false}} /> 
         <Stack.Screen name="CreateGroup" component={CreateGroup} options={{headerShown: false}} />
         <Stack.Screen name="Group" component={Group} options={{headerShown: false}} />
       </Stack.Navigator>

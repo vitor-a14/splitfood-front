@@ -3,12 +3,9 @@ import React from "react";
 import { Modal, Text, View, Pressable, StyleSheet } from "react-native";
 
 export default function Popup({ visible, onClose, title, message }) {
-    console.log("Title:", title); // Debugging statement
-    console.log("Message:", message); // Debugging statement
-    
   return (
     <Modal
-      animationType="slide"
+      animationType="fade"
       transparent={true}
       visible={visible}
       onRequestClose={onClose}>
@@ -17,7 +14,7 @@ export default function Popup({ visible, onClose, title, message }) {
           <Text style={styles.modalTitle}>{title}</Text>
           <Text style={styles.modalMessage}>{message}</Text>
           <Pressable onPress={onClose} style={styles.closeButton}>
-            <Text>Close</Text>
+            <Text>Entendi</Text>
           </Pressable>
         </View>
       </View>
@@ -38,16 +35,23 @@ const styles = StyleSheet.create({
     borderRadius: 10
   },
   modalTitle: {
+    textAlign: "center",
     fontWeight: "bold",
     color: "red",
     fontSize: 18,
     marginBottom: 10
   },
   modalMessage: {
+    textAlign: "center",
     marginBottom: 20
   },
   closeButton: {
     marginTop: 20,
-    alignItems: "center"
+    alignItems: "center",
+    borderRadius: 20, 
+    borderWidth: 1, 
+    borderColor: "red", 
+    paddingVertical: 10,
+    paddingHorizontal: 20 
   }
 });

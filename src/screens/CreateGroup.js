@@ -1,4 +1,4 @@
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import React, { useState } from "react"
 import { SafeAreaView, StyleSheet, TextInput, Text, FlatList, StatusBar, Dimensions, View, Platform, Image, Pressable, TouchableOpacity } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
@@ -11,6 +11,10 @@ export default function CreateGroup() {
     const {name,setName}=  useState("");
     const [selectedUsers, setSelectedUsers] = useState([]);
     const {description, setDescription}= useState("");
+
+  //dados do usuário logado
+  const route = useRoute();
+  const userData = route.params.userData;
 
     // Somente para testes - trocar os ids e nomes pelos respectivos métodos que chamam do db
     const userList = [
@@ -51,7 +55,7 @@ export default function CreateGroup() {
             <ScrollView>
             <View style={styles.containerHeader}>
                 <Text style={styles.textHeader}>Criar Grupo</Text>
-                <Pressable onPress={() => navigation.navigate('Home')}>
+                <Pressable onPress={() => navigation.navigate('Home', { userData: userData })}>
                     <Image style={styles.headerIcon} source={require('../../assets/closeIcon.png')}/>
                 </Pressable>
             </View>
