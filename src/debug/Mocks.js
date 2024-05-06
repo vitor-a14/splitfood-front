@@ -3,8 +3,14 @@ import React, { useState } from 'react';
 export const useMockData = () => {
   const [usersMock, setUsersMock] = useState([
     {
-      cpf: "532993812740",
+      cpf: "user",
       username: "Vitor Augusto",
+      password: "password",
+      role: "string",
+    },
+    {
+      cpf: "532993812740",
+      username: "Carlos Dias",
       password: "SEnhaFOrte129*",
       role: "string",
     },
@@ -113,5 +119,28 @@ export const useMockData = () => {
     },
   ]);
 
-  return { usersMock, groupsMock };
+  const findUserByCPF = (cpf) => {
+    console.log(usersMock.find(user => user.cpf === cpf));
+    return usersMock.find(user => user.cpf === cpf);
+  };
+
+  const findUserByUsername = (username) => {
+    return usersMock.find(user => user.username === username);
+  };
+
+  const createNewGroup = (name, description, creator_id, status, users, items) => {
+    const newGroup = {
+      id: groupsMock.length + 1,
+      name,
+      description,
+      creator_id,
+      status,
+      users,
+      items
+    };
+  
+    setGroupsMock(prevGroups => [...prevGroups, newGroup]);
+  };
+
+  return { usersMock, groupsMock, findUserByCPF, findUserByUsername, createNewGroup };
 };

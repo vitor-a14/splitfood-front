@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute  } from '@react-navigation/native';
 import {
   View,
   Text,
@@ -12,27 +12,20 @@ import {
 //Componentes
 import GroupItem from "../components/GroupItem";
 
-//MOck
+//Mock
 import { useMockData } from "../debug/Mocks";
 
 export default function Home() {
-  const navigation = useNavigation();
   const [groups, setGroups] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigation = useNavigation();
 
   //dados do usuário que vieram da tela de login
-  //const userData = route.params.userData;
+  const route = useRoute();
+  const userData = route.params.userData;
 
   //mocks
   const { usersMock, groupsMock } = useMockData();
-
-  const userData = {
-    cpf: "53299537297",
-    username: "Rodrigo Goes",
-    email: "orodrigogoes@gmail.com",
-    password: "senhaFortissima948",
-    role: "string",
-  };
 
   useEffect(() => {
     fetchGroups();
@@ -87,8 +80,8 @@ export default function Home() {
           </Text>
         )}
       </View>
-      <TouchableOpacity style={styles.addButton}>
-        <Text style={styles.adButtonText}>+</Text>
+      <TouchableOpacity style={styles.addButton} onPress={() => {navigation.navigate('CreateGroup', { userData: userData });}}>
+        <Text style={styles.addButtonText}>+</Text>
       </TouchableOpacity>
     </View>
   );
@@ -156,9 +149,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  adButtonText: {
+  addButtonText: {
+    textAlign: "center",
+    textAlignVertical: "center",
     color: "white",
     fontSize: "bold",
     fontSize: 40,
+    paddingBottom: 8,
   },
 });

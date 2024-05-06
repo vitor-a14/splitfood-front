@@ -4,6 +4,9 @@ import { Pressable, SafeAreaView, StyleSheet, Text, TextInput, View } from 'reac
 import Popup from "../components/PopUp";
 import LoadingOverlay from '../components/LoadingOverlay';
 
+//mock
+import { useMockData } from "../debug/Mocks";
+
 export default function Login() {
     const navigation = useNavigation();
     const [formData, setFormData] = useState({
@@ -30,21 +33,27 @@ export default function Login() {
         setPopupVisible(false); 
     };
 
+    //mock
+    const { findUserByCPF } = useMockData();
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         setLoading(true);
-    
+        
+        /*
+        requisição para o backend
+
         try {
             //comunicação com o backend
             const response = await fetch(`http://localhost:8080/users/${formData.cpf}`);
             if (!response.ok) {
-                throw new Error('Erro na respsota do servidor!');
+                throw new Error('Erro na resposta do servidor!');
             }
 
             const userData = await response.json();
-
+            
             // verifica se a senha é a mesma da digitada no forms de login
-            if (userData.password === state.password) {
+            if (userData != null && userData.password === formData.password) {
                 // dados confirmados com sucesso, redireciona o usuário
                 navigation.navigate('Home', { userData: userData });
             } else {
@@ -62,6 +71,25 @@ export default function Login() {
         }
 
         setLoading(false);
+        */
+
+        setTimeout(() => {
+            const userData = findUserByCPF(formData.cpf);
+            
+            // verifica se a senha é a mesma da digitada no forms de login
+            console.log(formData.password);
+            if (userData != null && userData.password === formData.password) {
+                // dados confirmados com sucesso, redireciona o usuário
+                navigation.navigate('Home', { userData: userData });
+            } else {
+                // senha incorreta
+                setPopupTitle("Erro ao fazer login");
+                setPopupMessage("CPF ou senha incorretos. Por favor, tente novamente.");
+                setPopupVisible(true);
+            }
+
+            setLoading(false);
+        }, 200);
     };
 
     return (
