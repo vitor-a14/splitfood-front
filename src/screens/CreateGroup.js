@@ -1,6 +1,7 @@
 import { useNavigation, useRoute } from "@react-navigation/native";
 import React, { useState } from "react"
-import { SafeAreaView, StyleSheet, TextInput, Text, FlatList, StatusBar, Dimensions, View, Platform, Image, Pressable } from "react-native";
+import { SafeAreaView, StyleSheet, TextInput, Text, FlatList, StatusBar, Dimensions, View, Platform, Image, Pressable, TouchableOpacity } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
 
 export default function CreateGroup() {
 
@@ -9,6 +10,7 @@ export default function CreateGroup() {
     const [filteredUsers, setFilteredUsers] = useState([]);
     const {name,setName}=  useState("");
     const [selectedUsers, setSelectedUsers] = useState([]);
+    const {description, setDescription}= useState("");
 
   //dados do usuário logado
   const route = useRoute();
@@ -24,6 +26,10 @@ export default function CreateGroup() {
         {id: 6, name: "Emerson Lino"},
         {id: 7, name: "Noah Kiyota"},
         {id: 8, name: "Anthony Kiyota"},
+        {id: 9, name: "Ana Maria"},
+        {id: 10, name: "Carlos Silva"},
+        {id: 11, name: "Mariana Oliveira"},
+        {id: 12, name: "Paulo Souza"},
     ];
     
     const handleSearch = (text) => {
@@ -39,9 +45,14 @@ export default function CreateGroup() {
         console.log("Usuário selecionado:", user); //Teste para ver se selecionou 
     };
 
+    const handleDeletedUser = (userToDelete) => {
+        setSelectedUsers(prevUsers => prevUsers.filter(user => user.id !== userToDelete.id));
+    };
+
     return (
         <SafeAreaView style={styles.container}>
             <StatusBar backgroundColor="#FFFFFF" barStyle="dark-content"/>
+            <ScrollView>
             <View style={styles.containerHeader}>
                 <Text style={styles.textHeader}>Criar Grupo</Text>
                 <Pressable onPress={() => navigation.navigate('Home', { userData: userData })}>
@@ -68,6 +79,8 @@ export default function CreateGroup() {
             <View style={styles.containerGrupo}>
                 <Text style={styles.labelName}>Nome do grupo</Text>
                 <TextInput value={name} style={styles.inputName} placeholder="Digite o nome aqui" autoCorrect={false} onChangeText={setName}/>
+                <Text style={styles.labelName}>Descrição do grupo</Text>
+                <TextInput value={description} style={styles.inputName} placeholder="Digite a descrição do seu grupo aqui" onChangeText={setDescription}/>
                 <Text style={styles.textIntegrantes}>Integrantes</Text>
                 <View style={styles.groupUsers}>
                     <Image style={styles.userIcon} source={require('../../assets/icone_userGrupo.png')}/>
@@ -77,13 +90,16 @@ export default function CreateGroup() {
                 <View style={styles.groupUsers} key={index}>
                     <Image style={styles.userIcon} source={require('../../assets/icone_userGrupo.png')}/>
                     <Text style={styles.textGroup}>{user.name}</Text>
-                    <Image style={styles.deleteIcon} source={require('../../assets/trash-delete.png')}/>
+                    <TouchableOpacity onPress={() => handleDeletedUser(user)}>
+                        <Image style={styles.deleteIcon} source={require('../../assets/trash-delete.png')}/>
+                    </TouchableOpacity>
                 </View>))}
-                <Pressable style={styles.finishButton}>
+                <Pressable style={styles.finishButton} onPress={() => navigation.navigate('Home')}>
                     <Image style={styles.finishButtonIcon} source={require('../../assets/finish.png')}/>
                     <Text style={styles.textFinishButton}>Criar Grupo</Text>
                 </Pressable>
             </View>
+            </ScrollView>
         </SafeAreaView>
     );
 }
@@ -103,7 +119,7 @@ const styles = StyleSheet.create({
     },
 
     textHeader: {
-        fontSize: 30,
+        fontSize: 25,
         color: '#990000',
         fontWeight: 'bold'
     },
@@ -152,32 +168,34 @@ const styles = StyleSheet.create({
     },
 
     containerGrupo: {
-        height: height * 0.75,
+        marginTop: height * 0.005,
         marginHorizontal: '10%',
     },
 
     labelName:{
-        fontSize: 20,
+        fontSize: 18,
+        fontWeight: '600'
     },
 
     inputName: {
         borderBottomWidth: 1,
         borderColor: '#990000',
-        padding: 10,
-        fontSize: 20,
-        fontWeight: 'bold'
+        padding: 3,
+        fontSize: 18,
+        marginBottom: 10,
+        color: '#909090'
     },
 
     textIntegrantes: {
-        marginTop: '10%',
-        fontSize: 20,
+        marginTop: '8%',
+        fontSize: 18,
     },
 
     groupUsers: {
         flexDirection: 'row',
         justifyContent: 'flex-start',
         gap: 15,
-        marginTop: '5%'
+        marginTop: '3%'
     },
 
     userIcon: {
