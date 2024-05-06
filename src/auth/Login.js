@@ -3,6 +3,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Pressable, SafeAreaView, StyleSheet, Text, TextInput, View } from 'react-native';
 import Popup from "../components/PopUp";
 import LoadingOverlay from '../components/LoadingOverlay';
+import userData from "../auth/UserData";
 
 //mock
 import { useMockData } from "../debug/Mocks";
@@ -74,13 +75,14 @@ export default function Login() {
         */
 
         setTimeout(() => {
-            const userData = findUserByCPF(formData.cpf);
+            window.userData = findUserByCPF(formData.cpf);
+            const userData = window.userData;
             
             // verifica se a senha é a mesma da digitada no forms de login
             console.log(formData.password);
             if (userData != null && userData.password === formData.password) {
                 // dados confirmados com sucesso, redireciona o usuário
-                navigation.navigate('Home', { userData: userData });
+                navigation.navigate('Home');
             } else {
                 // senha incorreta
                 setPopupTitle("Erro ao fazer login");

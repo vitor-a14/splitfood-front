@@ -120,7 +120,6 @@ export const useMockData = () => {
   ]);
 
   const findUserByCPF = (cpf) => {
-    console.log(usersMock.find(user => user.cpf === cpf));
     return usersMock.find(user => user.cpf === cpf);
   };
 
@@ -141,6 +140,16 @@ export const useMockData = () => {
   
     setGroupsMock(prevGroups => [...prevGroups, newGroup]);
   };
+  
+  const getUsersInGroup = (groupId) => {
+    const group = groupsMock.find(group => group.id === groupId);
+    if (group) {
+      let user = group.users.map(user => findUserByCPF(user.cpf));
+      user.password = '';
+      return user;
+    }
+    return [];
+  };
 
-  return { usersMock, groupsMock, findUserByCPF, findUserByUsername, createNewGroup };
+  return { usersMock, groupsMock, findUserByCPF, findUserByUsername, createNewGroup, getUsersInGroup };
 };

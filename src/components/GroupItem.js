@@ -1,7 +1,11 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { useNavigation, useRoute  } from '@react-navigation/native';
 
-export default function GroupItem({ name, description, participants, items, allUsers }) {
+export default function GroupItem({ name, description, participants, items, allUsers, groupData }) {
+  const navigation = useNavigation();
+
   // Function to get username from user ID
   const getUsername = (userId) => {
     const user = allUsers.find((user) => user.cpf === userId);
@@ -28,7 +32,7 @@ export default function GroupItem({ name, description, participants, items, allU
   };
 
   return (
-    <View style={styles.groupItem}>
+    <TouchableOpacity style={styles.groupItem} onPress={() => {navigation.navigate('GroupView', { groupData: groupData })}}>
       <View style={styles.topRight}>
         <Text style={styles.totalGroupValue}>R$ {getTotalGroupValue()}</Text>
       </View>
@@ -46,7 +50,7 @@ export default function GroupItem({ name, description, participants, items, allU
           </View>
         ))}
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }
 

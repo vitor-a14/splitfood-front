@@ -21,8 +21,7 @@ export default function Home() {
   const navigation = useNavigation();
 
   //dados do usuário que vieram da tela de login
-  const route = useRoute();
-  const userData = route.params.userData;
+  const userData = window.userData;
 
   //mocks
   const { usersMock, groupsMock } = useMockData();
@@ -35,7 +34,7 @@ export default function Home() {
     /*try {
         const response = await fetch('http://localhost:8080/groups/');
         if (!response.ok) {
-            throw new Error('Erro na respsota do servidor!');
+            throw new Error('Erro na resposta do servidor!');
         }
         const data = await response.json();
         setGroups(data);
@@ -70,7 +69,7 @@ export default function Home() {
           <FlatList style={styles.groupList}
             data={groups}
             renderItem={({ item }) => (
-              <GroupItem name={item.name} description={item.description} participants={item.users} items={item.items} allUsers={usersMock} />
+              <GroupItem name={item.name} description={item.description} participants={item.users} items={item.items} allUsers={usersMock} groupData={item} />
             )}
             keyExtractor={(item) => item.id.toString()}
           />
@@ -80,7 +79,7 @@ export default function Home() {
           </Text>
         )}
       </View>
-      <TouchableOpacity style={styles.addButton} onPress={() => {navigation.navigate('CreateGroup', { userData: userData });}}>
+      <TouchableOpacity style={styles.addButton} onPress={() => {navigation.navigate('CreateGroup')}}>
         <Text style={styles.addButtonText}>+</Text>
       </TouchableOpacity>
     </View>

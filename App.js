@@ -10,7 +10,7 @@ import SignUp from './src/auth/SignUp';
 import Opening from './src/screens/Opening';
 import CreateGroup from './src/screens/CreateGroup';
 import Home from './src/screens/Home';
-import Group from './src/screens/Group';
+import GroupView from './src/screens/GroupView';
 
 //Gerencia a navegação
 const Stack = createStackNavigator();
@@ -24,7 +24,7 @@ export default function App() {
         <Stack.Screen name="Login" component={Login} options={{headerShown: false}} />
         <Stack.Screen name="SignUp" component={SignUp} options={{headerShown: false}} />
         <Stack.Screen name="CreateGroup" component={CreateGroup} options={{headerShown: false}} />
-        <Stack.Screen name="Group" component={Group} options={{headerShown: false}} />
+        <Stack.Screen name="GroupView" component={GroupView} options={{headerShown: false}} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -12,10 +12,6 @@ export default function CreateGroup() {
     const [selectedUsers, setSelectedUsers] = useState([]);
     const {description, setDescription}= useState("");
 
-  //dados do usuário logado
-  const route = useRoute();
-  const userData = route.params.userData;
-
     // Somente para testes - trocar os ids e nomes pelos respectivos métodos que chamam do db
     const userList = [
         {id: 1, name: "Mônica Kiyota"},
@@ -55,7 +51,7 @@ export default function CreateGroup() {
             <ScrollView>
             <View style={styles.containerHeader}>
                 <Text style={styles.textHeader}>Criar Grupo</Text>
-                <Pressable onPress={() => navigation.navigate('Home', { userData: userData })}>
+                <Pressable onPress={() => navigation.goBack()}>
                     <Image style={styles.headerIcon} source={require('../../assets/closeIcon.png')}/>
                 </Pressable>
             </View>
@@ -94,7 +90,7 @@ export default function CreateGroup() {
                         <Image style={styles.deleteIcon} source={require('../../assets/trash-delete.png')}/>
                     </TouchableOpacity>
                 </View>))}
-                <Pressable style={styles.finishButton} onPress={() => navigation.navigate('Home')}>
+                <Pressable style={styles.finishButton} onPress={() => navigation.goBack()}>
                     <Image style={styles.finishButtonIcon} source={require('../../assets/finish.png')}/>
                     <Text style={styles.textFinishButton}>Criar Grupo</Text>
                 </Pressable>
