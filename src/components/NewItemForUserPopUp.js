@@ -6,7 +6,6 @@ import {
   View,
   Pressable,
   StyleSheet,
-  TextInput,
 } from "react-native";
 import { InputNumber } from "primereact/inputnumber";
 import "primereact/resources/themes/lara-light-cyan/theme.css";
@@ -30,6 +29,9 @@ export default function ItemForUserPopup({ visible, onClose, items }) {
     }));
   };
 
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState(null);
+
   return (
     <Modal
       animationType="fade"
@@ -41,12 +43,13 @@ export default function ItemForUserPopup({ visible, onClose, items }) {
         <View style={styles.modalView}>
           <Text style={styles.modalTitle}>Adicionar novo item</Text>
           <DropDownPicker
-            items={formattedItems} // Use formattedItems array
-            defaultValue={formData.itemName} // Set default value
-            containerStyle={styles.dropdownContainer}
-            style={styles.dropdownStyle}
-            dropDownStyle={styles.dropdown}
-            onChangeItem={(item) => handleChange("itemName", item.value)} // Use item.value as selected item
+            open={open}
+            value={value}
+            items={formattedItems}
+            setOpen={setOpen}
+            placeholder="Selecione um item"
+            setValue={setValue}
+            onChangeItem={(item) => handleChange("itemName", item.value)} 
           />
 
           <Text style={styles.modalMessage}>Quantidade:</Text>
@@ -92,10 +95,10 @@ const styles = StyleSheet.create({
   input: {
     height: 50,
     paddingHorizontal: 20,
-    borderColor: "#D3D3D3", // Slightly grey border color
+    borderColor: "#D3D3D3",
     borderWidth: 1,
-    borderRadius: 10, // Rounded corners
-    marginBottom: 20, // Increase space between inputs
+    borderRadius: 10, 
+    marginBottom: 20, 
   },
   modalView: {
     backgroundColor: "white",
@@ -112,6 +115,7 @@ const styles = StyleSheet.create({
   modalMessage: {
     textAlign: "center",
     marginBottom: 20,
+    marginTop: 20,
   },
   confirmButton: {
     marginTop: 20,
@@ -134,15 +138,5 @@ const styles = StyleSheet.create({
     borderColor: "red",
     paddingVertical: 10,
     paddingHorizontal: 20,
-  },
-  dropdownContainer: {
-    height: 40,
-    marginBottom: 20,
-  },
-  dropdownStyle: {
-    backgroundColor: "#fafafa",
-  },
-  dropdown: {
-    backgroundColor: "#fafafa",
   },
 });

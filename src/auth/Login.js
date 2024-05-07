@@ -102,6 +102,7 @@ export default function Login() {
                 <TextInput
                     style={styles.input}
                     placeholder='CPF do usuário'
+                    placeholderTextColor="gray" 
                     value={formData.cpf}
                     onChangeText={(value) => handleChange('cpf', value)}
                     autoCorrect={false}
@@ -110,6 +111,7 @@ export default function Login() {
                 <TextInput
                     style={styles.input}
                     placeholder='Senha'
+                    placeholderTextColor="gray" 
                     secureTextEntry
                     value={formData.password}
                     onChangeText={(value) => handleChange('password', value)}

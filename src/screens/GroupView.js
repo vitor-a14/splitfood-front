@@ -21,15 +21,13 @@ export default function GroupView() {
   //dados do grupo que vieram da tela principal
   const navigation = useNavigation();
   const route = useRoute();
-  //const [group, setGroup] = useState(route.params.groupData);
-
-  //const isManager = group.creator_id == window.userData.cpf;
-  //console.log(isManager);
+  const [group, setGroup] = useState(route.params.groupData);
+  const isManager = group.creator_id == window.userData.cpf;
 
   //mock
   const { groupsMock, findUserByCPF } = useMockData();
-  const [group, setGroup] = useState(groupsMock[1]);
-  const isManager = true;
+  //const [group, setGroup] = useState(groupsMock[1]);
+  //const isManager = true;
 
   const [newGroupItemPopUp, setNewGroupItemPopUp] = useState(false);
   const [newUserItemPopUp, setNewUserItemPopUp] = useState(false);

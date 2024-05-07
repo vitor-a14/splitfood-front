@@ -87,18 +87,21 @@ export default function SignUp() {
         <TextInput
           style={styles.input}
           placeholder="CPF"
+          placeholderTextColor="gray" 
           value={state.cpf}
           onChangeText={(value) => handleInputChange("cpf", value)}
         />
         <TextInput
           style={styles.input}
           placeholder="Nome de usuário"
+          placeholderTextColor="gray" 
           value={state.username}
           onChangeText={(value) => handleInputChange("username", value)}
         />
         <TextInput
           style={styles.input}
           placeholder="Senha"
+          placeholderTextColor="gray" 
           secureTextEntry
           value={state.password}
           onChangeText={(value) => handleInputChange("password", value)}

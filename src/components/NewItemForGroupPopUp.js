@@ -37,6 +37,7 @@ export default function NewItemForGroupPopUp({ visible, onClose }) {
           <TextInput
             style={styles.input}
             placeholder="Nome do item"
+            placeholderTextColor="gray" 
             value={formData.cpf}
             onChangeText={(value) => handleChange("itemName", value)}
             autoCorrect={false}
